@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Worker Example</title>
+</head>
+
+<body>
+    <h1>Web Worker Example</h1>
+    <button onclick="startWorker()">Start Worker</button>
+    <p id="result"></p>
+
+    <script>
+        function startWorker() {
+            if (typeof (Worker) !== "undefined") {
+                // Створення веб-воркера
+                const worker = new Worker("worker.js");
+
+                // Відправлення повідомлення веб-воркеру
+                worker.postMessage("Hello");
+
+                // Обробка повідомлення від веб-воркера
+                worker.onmessage = function (event) {
+                    document.getElementById("result").innerHTML = event.data;
+                };
+            } else {
+                document.getElementById("result").innerHTML = "Web Workers not supported!";
+            }
+        }
+    </script>
+</body>
+
+</html>
